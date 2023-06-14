@@ -56,20 +56,20 @@ def make_waveform(*args, **kwargs):
     with warnings.catch_warnings():
         warnings.simplefilter('ignore')
         out = gr.make_waveform(*args, **kwargs)
-        print("Make a video took", time.time() - be)
+        print("Crear el video tomo", time.time() - be)
         return out
 
 
 def load_model(version='melody'):
     global MODEL
-    print("Loading model", version)
+    print("Cargando modelo", version)
     if MODEL is None or MODEL.name != version:
         MODEL = MusicGen.get_pretrained(version)
 
 
 def _do_predictions(texts, melodies, duration, progress=False, **gen_kwargs):
     MODEL.set_generation_params(duration=duration, **gen_kwargs)
-    print("new batch", len(texts), texts, [None if m is None else (m[0], m[1].shape) for m in melodies])
+    print("Nuevo lote", len(texts), texts, [None if m is None else (m[0], m[1].shape) for m in melodies])
     be = time.time()
     processed_melodies = []
     target_sr = 32000
@@ -104,7 +104,7 @@ def _do_predictions(texts, melodies, duration, progress=False, **gen_kwargs):
                 loudness_headroom_db=16, loudness_compressor=True, add_suffix=False)
             out_files.append(pool.submit(make_waveform, file.name))
     res = [out_file.result() for out_file in out_files]
-    print("batch finished", len(texts), time.time() - be)
+    print("Lote terminado", len(texts), time.time() - be)
     return res
 
 
@@ -153,23 +153,23 @@ def ui_full(launch_kwargs):
         with gr.Row():
             with gr.Column():
                 with gr.Row():
-                    text = gr.Text(label="Input Text", interactive=True)
-                    melody = gr.Audio(source="upload", type="numpy", label="Melody Condition (optional)", interactive=True)
+                    text = gr.Text(label="Entrada de texto", interactive=True)
+                    melody = gr.Audio(source="upload", type="numpy", label="Muestra de audio (optional)", interactive=True)
                 with gr.Row():
                     submit = gr.Button("Submit")
                     # Adapted from https://github.com/rkfg/audiocraft/blob/long/app.py, MIT license.
-                    _ = gr.Button("Interrupt").click(fn=interrupt, queue=False)
+                    _ = gr.Button("Interrumpir").click(fn=interrupt, queue=False)
                 with gr.Row():
-                    model = gr.Radio(["melody", "medium", "small", "large"], label="Model", value="melody", interactive=True)
+                    model = gr.Radio(["melody", "medium", "small", "large"], label="Modelo", value="melody", interactive=True)
                 with gr.Row():
-                    duration = gr.Slider(minimum=1, maximum=120, value=10, label="Duration", interactive=True)
+                    duration = gr.Slider(minimum=1, maximum=120, value=10, label="Duracion (seg)", interactive=True)
                 with gr.Row():
                     topk = gr.Number(label="Top-k", value=250, interactive=True)
                     topp = gr.Number(label="Top-p", value=0, interactive=True)
-                    temperature = gr.Number(label="Temperature", value=1.0, interactive=True)
+                    temperature = gr.Number(label="Temperatura", value=1.0, interactive=True)
                     cfg_coef = gr.Number(label="Classifier Free Guidance", value=3.0, interactive=True)
             with gr.Column():
-                output = gr.Video(label="Generated Music")
+                output = gr.Video(label="Musica Generada")
         submit.click(predict_full, inputs=[model, text, melody, duration, topk, topp, temperature, cfg_coef], outputs=[output])
         gr.Examples(
             fn=predict_full,
