@@ -145,9 +145,9 @@ def ui_full(launch_kwargs):
     with gr.Blocks() as interface:
         gr.Markdown(
             """
-            # MusicGen
-            This is your private demo for [MusicGen](https://github.com/facebookresearch/audiocraft), a simple and controllable model for music generation
-            presented at: ["Simple and Controllable Music Generation"](https://huggingface.co/papers/2306.05284)
+            # MusicGen    
+            Esta es tu demo privada de [MusicGen](https://github.com/facebookresearch/audiocraft), un modelo simple y controlable para la generación de música
+            presentado en: ["Generación de música simple y controlable"](https://huggingface.co/papers/2306.05284)
             """
         )
         with gr.Row():
@@ -205,29 +205,29 @@ def ui_full(launch_kwargs):
         )
         gr.Markdown(
             """
-            ### More details
+            ### Más detalles
 
-            The model will generate a short music extract based on the description you provided.
-            The model can generate up to 30 seconds of audio in one pass. It is now possible
-            to extend the generation by feeding back the end of the previous chunk of audio.
-            This can take a long time, and the model might lose consistency. The model might also
-            decide at arbitrary positions that the song ends.
+            El modelo generará un breve extracto musical basado en la descripción que proporcionaste.
+            El modelo puede generar hasta 30 segundos de audio de una sola vez. Ahora es posible
+            extender la generación retroalimentando el final del fragmento de audio anterior.
+            Esto puede llevar mucho tiempo y el modelo podría perder consistencia. El modelo también podría
+            decidir arbitrariamente en qué posiciones termina la canción.
 
-            **WARNING:** Choosing long durations will take a long time to generate (2min might take ~10min). An overlap of 12 seconds
-            is kept with the previously generated chunk, and 18 "new" seconds are generated each time.
+            **ADVERTENCIA:** Elegir una duración larga llevará mucho tiempo para generar (2 minutos pueden tomar ~10 minutos). Se mantiene una superposición de 12 segundos
+            con el fragmento generado previamente, y se generan 18 segundos "nuevos" cada vez.
 
-            We present 4 model variations:
-            1. Melody -- a music generation model capable of generating music condition on text and melody inputs. **Note**, you can also use text only.
-            2. Small -- a 300M transformer decoder conditioned on text only.
-            3. Medium -- a 1.5B transformer decoder conditioned on text only.
-            4. Large -- a 3.3B transformer decoder conditioned on text only (might OOM for the longest sequences.)
+            Presentamos 4 variaciones del modelo:
+            1. Melody - un modelo de generación de música capaz de generar música en función de texto y entradas melódicas. **Nota**: también puedes usar solo texto.
+            2. Small - un decodificador transformador de 300 millones de parámetros condicionado solo por texto.
+            3. Medium - un decodificador transformador de 1.5 mil millones de parámetros condicionado solo por texto.
+            4. Large - un decodificador transformador de 3.3 mil millones de parámetros condicionado solo por texto (podría dar un error de falta de memoria para las secuencias más largas).
 
-            When using `melody`, ou can optionaly provide a reference audio from
-            which a broad melody will be extracted. The model will then try to follow both the description and melody provided.
+            Cuando uses `melody`, opcionalmente puedes proporcionar un audio de referencia
+            del cual se extraerá una melodía amplia. El modelo intentará seguir tanto la descripción como la melodía proporcionada.
 
-            You can also use your own GPU or a Google Colab by following the instructions on our repo.
-            See [github.com/facebookresearch/audiocraft](https://github.com/facebookresearch/audiocraft)
-            for more details.
+            También puedes usar tu propia GPU o Google Colab siguiendo las instrucciones de nuestro repositorio.
+            Consulta [github.com/facebookresearch/audiocraft](https://github.com/facebookresearch/audiocraft)
+            para obtener más detalles.
             """
         )
 
@@ -240,12 +240,12 @@ def ui_batched(launch_kwargs):
             """
             # MusicGen
 
-            This is the demo for [MusicGen](https://github.com/facebookresearch/audiocraft), a simple and controllable model for music generation
-            presented at: ["Simple and Controllable Music Generation"](https://huggingface.co/papers/2306.05284).
+            Esta es la demostración de [MusicGen](https://github.com/facebookresearch/audiocraft), un modelo simple y controlable para la generación de música
+            presentado en: ["Generación de música simple y controlable"](https://huggingface.co/papers/2306.05284).
             <br/>
             <a href="https://huggingface.co/spaces/facebook/MusicGen?duplicate=true" style="display: inline-block;margin-top: .5em;margin-right: .25em;" target="_blank">
-            <img style="margin-bottom: 0em;display: inline;margin-top: -.25em;" src="https://bit.ly/3gLdBN6" alt="Duplicate Space"></a>
-            for longer sequences, more control and no queue.</p>
+            <img style="margin-bottom: 0em;display: inline;margin-top: -.25em;" src="https://bit.ly/3gLdBN6" alt="Espacio duplicado"></a>
+            para secuencias más largas, mayor control y sin cola.</p>
             """
         )
         with gr.Row():
@@ -286,17 +286,17 @@ def ui_batched(launch_kwargs):
             outputs=[output]
         )
         gr.Markdown("""
-        ### More details
+        ### Más detalles
 
-        The model will generate 12 seconds of audio based on the description you provided.
-        You can optionaly provide a reference audio from which a broad melody will be extracted.
-        The model will then try to follow both the description and melody provided.
-        All samples are generated with the `melody` model.
+        El modelo generará 12 segundos de audio basado en la descripción que proporcionaste.
+        Opcionalmente, puedes proporcionar un audio de referencia del cual se extraerá una melodía amplia.
+        Luego, el modelo intentará seguir tanto la descripción como la melodía proporcionada.
+        Todas las muestras se generan con el modelo `melody`.
 
-        You can also use your own GPU or a Google Colab by following the instructions on our repo.
+        También puedes usar tu propia GPU o Google Colab siguiendo las instrucciones en nuestro repositorio.
 
-        See [github.com/facebookresearch/audiocraft](https://github.com/facebookresearch/audiocraft)
-        for more details.
+        Consulta [github.com/facebookresearch/audiocraft](https://github.com/facebookresearch/audiocraft)
+        para obtener más detalles.
         """)
 
         demo.queue(max_size=8 * 4).launch(**launch_kwargs)
